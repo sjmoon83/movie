@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:webtoon02/models/pop_model.dart';
 import 'package:webtoon02/services/api_service.dart';
+import 'package:webtoon02/widgets/popular_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
   final Future<List<PopModel>> populars = ApiServicePop.getPopular();
-  static const String postUrl = "https://image.tmdb.org/t/p/w500";
 
   @override
   Widget build(BuildContext context) {
@@ -55,25 +55,14 @@ class HomeScreen extends StatelessWidget {
       itemBuilder: (context, index) {
         print(index);
         var popular = snapshot.data![index];
-        return Column(
-          children: [
-            Container(
-              clipBehavior: Clip.hardEdge,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 3,
-                      offset: const Offset(5, 5),
-                      color: Colors.black.withOpacity(0.5),
-                    ),
-                  ]),
-              width: 300,
-              child: Image.network(
-                '$postUrl${popular.backdropPath}',
-              ),
-            ),
-          ],
+        return Popular(
+          id: popular.id,
+          backdropPath: popular.backdropPath,
+          posterPath: popular.posterPath,
+          genreIds: popular.genreIds,
+          overview: popular.overview,
+          title: popular.title,
+          voteAverage: popular.voteAverage,
         );
       },
       separatorBuilder: (context, index) => const SizedBox(

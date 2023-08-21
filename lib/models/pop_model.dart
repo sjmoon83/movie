@@ -1,10 +1,13 @@
 class PopModel {
-  final String backdropPath, title, overview;
-  final Object voteAverage;
+  final String backdropPath, posterPath, title, overview;
+  final num voteAverage;
+  final int id;
   final List genreIds;
 
   PopModel.fromJson(Map<String, dynamic> json)
-      : backdropPath = json['backdrop_path'],
+      : id = json['id'],
+        backdropPath = json['backdrop_path'],
+        posterPath = json['poster_path'],
         title = json['title'],
         voteAverage = json['vote_average'],
         overview = json['overview'],
